@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>מסע החידות – 80 לנפתלי 🎉</title>
+<title>[בדיקה] מסע החידות – 80 לנפתלי 🎉</title>
 <style>
 /* ===== DESIGN SYSTEM - matching escape80-pepi.html ===== */
 :root{
@@ -369,8 +369,8 @@ const STAGE_RIDDLE={2:0,3:1,5:2,6:3};
 const STAGE_PROG={2:25,3:50,5:75,6:100};
 
 let st={stage:0,wrongCnt:0,gpsTaps:0};
-function load(){try{const s=localStorage.getItem('naftaliBday80');if(s)st={...st,...JSON.parse(s)};}catch(e){}}
-function save(){try{localStorage.setItem('naftaliBday80',JSON.stringify(st));}catch(e){}}
+function load(){try{const s=localStorage.getItem('naftaliBday80_TEST');if(s)st={...st,...JSON.parse(s)};}catch(e){}}
+function save(){try{localStorage.setItem('naftaliBday80_TEST',JSON.stringify(st));}catch(e){}}
 
 function showScreen(s,anim){
   document.querySelectorAll('.screen').forEach(el=>{el.classList.remove('active');});
@@ -441,7 +441,14 @@ document.getElementById('btn-next').addEventListener('click',()=>{
 const GPS_LAT=32.0883304,GPS_LNG=34.7819878,GPS_R=10;
 function haversine(a,b,c,d){const R=6371000,dLa=(c-a)*Math.PI/180,dLo=(d-b)*Math.PI/180,x=Math.sin(dLa/2)**2+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(dLo/2)**2;return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));}
 
-// GPS check only
+// GPS check - TEST MODE with skip button
+document.getElementById("gps-fb").insertAdjacentHTML("afterend",
+  '<button class="btn btn-secondary" style="margin-top:10px;" id="btn-skip-gps">⏭ דלג על בדיקת מיקום (בדיקה)</button>');
+document.getElementById("btn-skip-gps").addEventListener("click", function(){
+  showSuccess("🕍","הגעתם למקום!","החידה הבאה פתוחה 🎉",function(){
+    st.stage=5; save(); showScreen(5,true);
+  });
+});
 
 document.getElementById('btn-gps').addEventListener('click',()=>{
   const fb=document.getElementById('gps-fb');
