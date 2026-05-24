@@ -1,0 +1,1078 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>חדר בריחה – לגבורות</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+
+    <!-- פונט נעים בעברית/אנגלית - -->
+    //fonts.googleapis.com"> //fonts.gstatic.com" crossorigin>
+    //fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+
+    <style>
+      :root {
+        --bg: #f8f3ea;
+        --bg-soft: #fdf8f0;
+        --accent: #2e5574;
+        --accent-soft: #ffe9d2;
+        --accent-2: #c54b6c;
+        --text-main: #2c2622;
+        --text-muted: #7d736d;
+        --success: #2f7a3b;
+        --error: #b2344f;
+        --card-radius: 24px;
+        --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.08);
+        --transition-fast: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family:
+          'Heebo',
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
+        background: radial-gradient(
+          circle at top,
+          #fff7eb 0,
+          #f8f3ea 45%,
+          #f4eee4 100%
+        );
+        color: var(--text-main);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+      }
+
+      .app {
+        width: 100%;
+        max-width: 480px;
+        padding: 16px 16px 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      @media (min-width: 900px) {
+        .desktop-warning {
+          display: block;
+        }
+      }
+
+      .desktop-warning {
+        display: none;
+        background: #fff3cd;
+        color: #8a6d3b;
+        border-radius: 16px;
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      .brand-badge {
+        align-self: center;
+        width: 190px;
+        height: 190px;
+        border-radius: 50%;
+        background: conic-gradient(
+          from 0deg,
+          #f69c9f 0deg 40deg,
+          #f3c26b 40deg 80deg,
+          #7ec8c5 80deg 120deg,
+          #f08fbf 120deg 160deg,
+          #7cc3ff 160deg 200deg,
+          #f6b37a 200deg 240deg,
+          #7ec8c5 240deg 280deg,
+          #f69c9f 280deg 320deg,
+          #f3c26b 320deg 360deg
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        position: relative;
+      }
+
+      .brand-badge-inner {
+        width: 82%;
+        height: 82%;
+        border-radius: 50%;
+        background: #fbf6ee;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 12px;
+        color: var(--accent);
+      }
+
+      .brand-badge-inner span.main {
+        font-weight: 700;
+        font-size: 1.05rem;
+        line-height: 1.4;
+      }
+
+      .brand-badge-inner span.sub {
+        margin-top: 6px;
+        font-size: 0.85rem;
+        color: var(--accent-2);
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 999px;
+        overflow: hidden;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+      }
+
+      .progress-inner {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent-2), var(--accent));
+        width: 0%;
+        transition: width 260ms ease-out;
+      }
+
+      .card {
+        background: linear-gradient(145deg, var(--bg-soft), #ffffff);
+        border-radius: var(--card-radius);
+        box-shadow: var(--shadow-soft);
+        padding: 20px 18px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: '';
+        position: absolute;
+        inset: -40%;
+        background:
+          radial-gradient(
+            circle at 0 0,
+            rgba(255, 182, 144, 0.26),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 100% 0,
+            rgba(126, 200, 197, 0.2),
+            transparent 55%
+          );
+        opacity: 0.4;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .card-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 4px;
+      }
+
+      .step-title {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: var(--accent);
+      }
+
+      .step-counter {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      .poem {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        color: var(--text-main);
+        white-space: pre-line;
+      }
+
+      .question {
+        margin-top: 10px;
+        font-weight: 500;
+        color: var(--accent);
+      }
+
+      .hint {
+        margin-top: 4px;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      .location-note {
+        margin-top: 8px;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      .input-row {
+        margin-top: 12px;
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+      }
+
+      input[type='text'],
+      input[type='tel'] {
+        flex: 1;
+        border-radius: 999px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        padding: 10px 14px;
+        font-size: 1rem;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.9);
+        color: #222;
+        direction: ltr;
+      }
+
+      input[type='text']:focus,
+      input[type='tel']:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 2px rgba(46, 85, 116, 0.18);
+      }
+
+      .btn {
+        border: none;
+        border-radius: 999px;
+        padding: 10px 16px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          transform var(--transition-fast),
+          box-shadow var(--transition-fast),
+          background var(--transition-fast),
+          color var(--transition-fast);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        white-space: nowrap;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #fff;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
+      }
+
+      .btn-primary:active {
+        transform: translateY(1px) scale(0.98);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.85);
+        color: var(--accent);
+        border: 1px solid rgba(0, 0, 0, 0.07);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+      }
+
+      .btn-secondary:active {
+        transform: translateY(1px) scale(0.98);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+      }
+
+      .btn-small {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        border-radius: 999px;
+      }
+
+      .footer-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+
+      .feedback {
+        margin-top: 10px;
+        min-height: 1.4em;
+        font-size: 0.92rem;
+      }
+
+      .feedback.success {
+        color: var(--success);
+      }
+
+      .feedback.error {
+        color: var(--error);
+      }
+
+      .toast {
+        position: fixed;
+        inset-inline: 50%;
+        bottom: 18px;
+        transform: translateX(50%);
+        max-width: 480px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.82);
+        color: #fff;
+        font-size: 0.9rem;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        z-index: 50;
+      }
+
+      .toast.show {
+        display: flex;
+        animation: fadeUp 260ms ease-out;
+      }
+
+      .app-header-text {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        text-align: center;
+      }
+
+      .app-header-text strong {
+        color: var(--accent);
+      }
+
+      .shake {
+        animation: shake 350ms cubic-bezier(0.36, 0.07, 0.19, 0.97);
+      }
+
+      .fade-in {
+        animation: fadeIn 360ms ease-out;
+      }
+
+      .confetti-piece {
+        position: fixed;
+        width: 8px;
+        height: 14px;
+        background: #ffce54;
+        top: -10px;
+        border-radius: 2px;
+        opacity: 0.9;
+        z-index: 40;
+        pointer-events: none;
+        animation: confetti-fall 900ms ease-out forwards;
+      }
+
+      @keyframes shake {
+        10%,
+        90% {
+          transform: translateX(-1px);
+        }
+        20%,
+        80% {
+          transform: translateX(2px);
+        }
+        30%,
+        50%,
+        70% {
+          transform: translateX(-4px);
+        }
+        40%,
+        60% {
+          transform: translateX(4px);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes confetti-fall {
+        0% {
+          transform: translateY(0) rotateZ(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(110vh) rotateZ(260deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translate(50%, 12px);
+        }
+        to {
+          opacity: 1;
+          transform: translate(50%, 0);
+        }
+      }
+
+      .final-message {
+        font-size: 1rem;
+        line-height: 1.7;
+        text-align: center;
+        color: var(--accent);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <div class="desktop-warning">
+        המשחק מיועד לטלפון. כדאי לסרוק את ה־QR / לשלוח לעצמך קישור ולפתוח
+        מהסמארטפון.
+      </div>
+
+      <div class="brand-badge">
+        <div class="brand-badge-inner">
+          <span class="main">שיהיה לך<br />עוד יותר טוב</span>
+          <span class="sub">חגיגות לגבורות</span>
+        </div>
+      </div>
+
+      <p class="app-header-text">
+        משחק חידות קצר, בתחנות משמעותיות מהחיים – עם קצת
+        <strong>רמזים, נוסטלגיה</strong> והרבה אהבה.
+      </p>
+
+      <div class="progress-bar">
+        <div id="progressInner" class="progress-inner"></div>
+      </div>
+
+      <section id="card" class="card fade-in">
+        <div class="card-content">
+          <header class="card-header">
+            <div class="step-title" id="stepTitle"></div>
+            <div class="step-counter" id="stepCounter"></div>
+          </header>
+
+          <div id="poem" class="poem"></div>
+          <div id="question" class="question"></div>
+          <div id="hint" class="hint"></div>
+          <div id="locationNote" class="location-note"></div>
+
+          <div id="inputRow" class="input-row">
+            <input
+              id="answerInput"
+              type="text"
+              inputmode="text"
+              autocomplete="off"
+            />
+            <button id="checkBtn" class="btn btn-primary">בדיקת תשובה</button>
+          </div>
+
+          <div id="feedback" class="feedback"></div>
+
+          <div class="footer-actions">
+            <button
+              id="hintBtn"
+              class="btn btn-secondary btn-small"
+              type="button"
+            >
+              צריך רמז?
+            </button>
+            <button
+              id="resetBtn"
+              class="btn btn-secondary btn-small"
+              type="button"
+            >
+              איפוס משחק
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div id="toast" class="toast"></div>
+    </div>
+
+    <script>
+      // --- הגדרות בסיס ---
+      const STORAGE_KEY = 'escape80_state_v1';
+
+      // קואורדינטות לבית הכנסת "חן הצפון" – החלף לערכים מדויקים מגוגל מפות
+      // לדוגמה: 32.XXXXX, 34.XXXXX (רוחב, אורך)
+      const CHEN_HATZAFON_LAT = 32.123456; // TODO: להחליף
+      const CHEN_HATZAFON_LNG = 34.123456; // TODO: להחליף
+      const GEOFENCE_RADIUS_METERS = 10;
+
+      // מילים מעודדות לשגיאות
+      const encouragementMessages = [
+        'לא נורא, זה רק נסיון אחד. תנסו שוב.',
+        'משהו פה קרוב… אולי שווה לבדוק רווחים/מספרים.',
+        'יש מצב לפסיק/מקף שסיבך את העסק.',
+        'הראש בכיוון הנכון, עוד מעט זה שם.',
+        'טעות אחת פחות בדרך לתשובה הנכונה.',
+      ];
+
+      // רמזים נפתחים אחרי X נסיונות כושלים
+      const HINT_AFTER_ATTEMPTS = 2;
+
+      // --- הגדרת החידות ---
+      // ניתן לערוך/להוסיף שלבים לפי הצורך
+      const riddles = [
+        {
+          id: 'intro',
+          type: 'intro',
+          title: 'פתיח',
+          poem: [
+            'בוקר טוב, בוקר של שמחות,',
+            'אבא/סבא הגיע לגבורות.',
+            'ארוחה קלה עם המשפחה הגרעינית,',
+            'ומיד אחריה – פעילות חווייתית.',
+            '',
+            'טיול קטן עם חידות-חמשירים,',
+            'להיזכר מעט באביב נעורים.',
+            'נעבור בכמה תחנות מכוננות,',
+            'ולבסוף ניפגש להמשך תוכניות.',
+            '',
+            'חוקי המשחק פשוטים:',
+            'מקבלים כתב חידה, נזכרים, מגיעים לנקודה,',
+            'ועל סמך המקום – עונים על שאלה קטנה.',
+          ].join('\n'),
+          question: 'לחצו על "מתחילים" כשאתם מוכנים לצאת לדרך.',
+          hint: 'אין תשובה להקלדה – רק להתחיל 🙂',
+          expectedAnswers: [],
+          formatNote: '',
+          showInput: false,
+          isLocationGate: false,
+        },
+        {
+          id: 'onkelos',
+          type: 'text',
+          title: 'אונקלוס 3',
+          poem: [
+            'זוג מאורס מחפש דירה,',
+            'הכי חשוב – מרפסת סוכה.',
+            'באיטליה הרחוקה רוגע ושלווה,',
+            'והדירה שמורה מהקומה השנייה.',
+            '',
+            'בסופו של דבר סוכה הייתה,',
+            'אבל לשבת בה – זאת כבר בעיה…',
+            '',
+            'ועכשיו לחימום חידה קטנה:',
+            'בתחילת הרחוב מכולת בשכונה.',
+            'אם ארצה לבצע קנייה,',
+            'מה המספר לביצוע הזמנה?',
+          ].join('\n'),
+          question: 'מה מספר הטלפון של המכולת לתיאום הזמנה?',
+          hint: 'ללא מקפים או רווחים, 10 ספרות, מתחיל ב-05.',
+          formatNote: 'דוגמה לפורמט: 0501234567',
+          expectedAnswers: ['0526929999'],
+          showInput: true,
+          isLocationGate: false,
+          inputType: 'tel',
+        },
+        {
+          id: 'jabotinsky',
+          type: 'text',
+          title: 'ז׳בוטינסקי 74',
+          poem: [
+            'ליד אסותא – בית חסדים,',
+            'בעד החלון השקיפה אם הילדים.',
+            'ואם בדייט ממש מתעכבים,',
+            'גם בפינת הרחוב הייתם נפגשים.',
+            '',
+            'ילדות, נערות וחוויות לרוב,',
+            'חדר מושכר ליובל הקרוב.',
+            'להגיע לביקור הופך למשימה,',
+            'לא בגלל די זעליגע מאַמע,',
+            'אלא בעיקר בגלל החנייה…',
+            '',
+            'ועכשיו כשאתם כבר כאן –',
+            'אַרויף די גאַס, אַן אָרט וווּ מען וואַרט אויף טראַנספּאָרט.',
+            'זאָג מיר פּונקט, וואָס איז דער סטאַנציע־נומער דאָרט?',
+          ].join('\n'),
+          question: 'מה מספר התחנה במעלה הרחוב?',
+          hint: 'רק מספר התחנה, 5 ספרות, בלי תוספות.',
+          formatNote: '',
+          expectedAnswers: ['25848'],
+          showInput: true,
+          isLocationGate: false,
+          inputType: 'tel',
+        },
+        {
+          id: 'chen-hatzafon',
+          type: 'location',
+          title: 'בית כנסת חן הצפון',
+          poem: [
+            'الكنيس أور هتسافون –',
+            'תעתיק בערבית של "בית כנסת חן הצפון".',
+            '',
+            'החידה הבאה תיפתח',
+            'רק כשתגיעו פיזית למקום.',
+          ].join('\n'),
+          question: 'כשאתם עומדים ליד בית הכנסת – לחצו על "בדיקת מיקום".',
+          hint: 'הקפידו להפעיל GPS, ולאפשר לדפדפן גישה למיקום.',
+          formatNote: '',
+          expectedAnswers: [],
+          showInput: false,
+          isLocationGate: true,
+        },
+        {
+          id: 'ichilov',
+          type: 'text',
+          title: 'איכילוב',
+          poem: [
+            'עכשיו נגיע למקום משמעותי ביותר,',
+            'ליווה אתכם שנים רבות.',
+            'מקבלת התואר ועד הפרישה (לכאורה),',
+            'כוננויות, התמחות, לידות וחוסר שינה.',
+            '',
+            'שליחות של חיים,',
+            'תמיד במומחיות ומאור פנים.',
+            'מחלקה ספציפית זכורה לטוב –',
+            'הד"רים אירגא, כהן, גודווין ועוד,',
+            'וכמובן כמובן מנהל המחלקה,',
+            'הד"ר דקל הנודע.',
+            '',
+            'הגיעו נא לפתח המחלקה,',
+            'ותמונה שלכם בכניסה – שלחו לביתכם הבכורה.',
+          ].join('\n'),
+          question:
+            'מהן שלוש האותיות של שם המחלקה (ראשי תיבות) כפי שמופיע בשלט?',
+          hint: 'להקליד שלוש אותיות בעברית, בלי רווחים. לפי ראשי התיבות שנמצאים בכניסה.',
+          formatNote: '',
+          expectedAnswers: ['תשל'],
+          showInput: true,
+          isLocationGate: false,
+          inputType: 'text',
+        },
+        {
+          id: 'yad-lashiryon',
+          type: 'text',
+          title: 'יד לשריון',
+          poem: [
+            'מקווים שנהניתם במסע אל העבר,',
+            'קצת זיכרונות וחוויות למאגר.',
+            'אין ספק הייתם אלופים,',
+            'מהירות כזאת שמורה רק לצעירים.',
+            '',
+            'ועכשיו למקום האחרון במשחק,',
+            'מקום בו נפגשים שני תחומי עניין:',
+            'שריון והיסטוריה – זה שילוב נהדר.',
+            'יש יד כזאת שנמצאת בבניין המשטר…',
+            '',
+            'יוצאים מתל-אביב, קצת מתרחקים,',
+            'אבל הולכים לפגוש ילדים, נכדים ונינים.',
+            '',
+            'יד לחיל האחד והיחיד, מוזיאון נהדר –',
+            'אנא הכניסו את שם האתר.',
+          ].join('\n'),
+          question: 'איך נקרא האתר שבו אתם מסיימים את המשחק?',
+          hint: 'מספיק לכתוב "יד לשריון" או "לטרון".',
+          formatNote: '',
+          expectedAnswers: ['יד לשריון', 'יד השריון', 'לטרון'],
+          showInput: true,
+          isLocationGate: false,
+          inputType: 'text',
+        },
+        {
+          id: 'final',
+          type: 'final',
+          title: 'סיום מתוק',
+          poem: '',
+          question: '',
+          hint: '',
+          formatNote: '',
+          expectedAnswers: [],
+          showInput: false,
+          isLocationGate: false,
+        },
+      ];
+
+      // --- עזר לאחסון מקומי ---
+      let storageAvailable = true;
+      function saveState(state) {
+        if (!storageAvailable) return;
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) {
+          storageAvailable = false;
+        }
+      }
+
+      function loadState() {
+        if (!storageAvailable) return null;
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return null;
+          return JSON.parse(raw);
+        } catch (e) {
+          storageAvailable = false;
+          return null;
+        }
+      }
+
+      function clearState() {
+        if (!storageAvailable) return;
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch (e) {
+          storageAvailable = false;
+        }
+      }
+
+      // --- אלמנטים מה־DOM ---
+      const stepTitleEl = document.getElementById('stepTitle');
+      const stepCounterEl = document.getElementById('stepCounter');
+      const poemEl = document.getElementById('poem');
+      const questionEl = document.getElementById('question');
+      const hintEl = document.getElementById('hint');
+      const locationNoteEl = document.getElementById('locationNote');
+      const inputRowEl = document.getElementById('inputRow');
+      const answerInputEl = document.getElementById('answerInput');
+      const checkBtnEl = document.getElementById('checkBtn');
+      const hintBtnEl = document.getElementById('hintBtn');
+      const resetBtnEl = document.getElementById('resetBtn');
+      const feedbackEl = document.getElementById('feedback');
+      const cardEl = document.getElementById('card');
+      const toastEl = document.getElementById('toast');
+      const progressInnerEl = document.getElementById('progressInner');
+
+      // --- מצב המשחק ---
+      let currentIndex = 0;
+      let attemptsPerStep = {};
+      let hintRevealed = {};
+
+      function normalizeAnswer(str) {
+        return str
+          .toString()
+          .trim()
+          .replace(/\s+/g, '')
+          .replace(/-/g, '')
+          .toLowerCase();
+      }
+
+      function updateProgress() {
+        const totalPlayable = riddles.length - 1; // כולל intro, בלי final כמטרה
+        const safeIndex = Math.min(currentIndex, totalPlayable);
+        const progress = (safeIndex / totalPlayable) * 100;
+        progressInnerEl.style.width = `${progress}%`;
+      }
+
+      function showToast(message) {
+        toastEl.textContent = message;
+        toastEl.classList.add('show');
+        setTimeout(() => {
+          toastEl.classList.remove('show');
+        }, 2400);
+      }
+
+      function triggerConfetti() {
+        const colors = ['#f9a826', '#f95d6a', '#ffce54', '#7cc6ff', '#9c88ff'];
+        const count = 22;
+        for (let i = 0; i < count; i++) {
+          const piece = document.createElement('div');
+          piece.className = 'confetti-piece';
+          piece.style.left = `${5 + Math.random() * 90}%`;
+          piece.style.background = colors[i % colors.length];
+          piece.style.animationDuration = 700 + Math.random() * 600 + 'ms';
+          piece.style.transform = `translateY(0) rotateZ(${Math.random() * 360}deg)`;
+          document.body.appendChild(piece);
+          piece.addEventListener('animationend', () => piece.remove());
+        }
+      }
+
+      function showStep(index, animate = true) {
+        const step = riddles[index];
+        currentIndex = index;
+
+        if (step.type === 'final') {
+          stepTitleEl.textContent = 'סיום המשחק';
+          stepCounterEl.textContent = '';
+          poemEl.innerHTML = '';
+          questionEl.innerHTML = '';
+          hintEl.textContent = '';
+          locationNoteEl.textContent = '';
+          inputRowEl.style.display = 'none';
+          hintBtnEl.style.visibility = 'hidden';
+
+          const finalHtml = `
+          <div class="final-message">
+            🎉 כל הכבוד! הגעתם לסיום המסע 🎉<br><br>
+            עכשיו הזמן להמשיך לחגיגות, לעוד זיכרונות טובים,<br>
+            ולחיבוק גדול מהמשפחה שאוהבת אתכם.
+          </div>
+        `;
+          feedbackEl.innerHTML = finalHtml;
+          feedbackEl.className = 'feedback success';
+          updateProgress();
+          triggerConfetti();
+          return;
+        }
+
+        stepTitleEl.textContent = step.title;
+        const playableSteps = riddles.filter((r) => r.type !== 'final');
+        const visibleIndex =
+          playableSteps.findIndex((r) => r.id === step.id) + 1;
+        stepCounterEl.textContent = `חידה ${visibleIndex} מתוך ${playableSteps.length}`;
+
+        poemEl.textContent = step.poem || '';
+        questionEl.textContent = step.question || '';
+        hintEl.textContent = hintRevealed[step.id] ? step.hint || '' : '';
+        locationNoteEl.textContent = '';
+
+        if (step.isLocationGate) {
+          inputRowEl.style.display = 'none';
+          hintBtnEl.style.visibility = 'visible';
+          feedbackEl.textContent = '';
+          feedbackEl.className = 'feedback';
+          locationNoteEl.textContent =
+            'בדפדפן יופיע חלון בקשה לאישור מיקום. מומלץ לעמוד ממש ליד הכניסה לבית הכנסת ולוודא שה-GPS מופעל.';
+          checkBtnEl.textContent = 'בדיקת מיקום';
+        } else if (step.type === 'intro') {
+          inputRowEl.style.display = 'none';
+          hintBtnEl.style.visibility = 'visible';
+          feedbackEl.textContent = '';
+          feedbackEl.className = 'feedback';
+          locationNoteEl.textContent = '';
+          checkBtnEl.textContent = 'מתחילים';
+        } else {
+          inputRowEl.style.display = 'flex';
+          hintBtnEl.style.visibility = 'visible';
+          answerInputEl.value = '';
+          answerInputEl.type = step.inputType === 'tel' ? 'tel' : 'text';
+          answerInputEl.placeholder = step.formatNote || 'הקלידו את התשובה כאן';
+          feedbackEl.textContent = '';
+          feedbackEl.className = 'feedback';
+          checkBtnEl.textContent = 'בדיקת תשובה';
+        }
+
+        if (animate) {
+          cardEl.classList.remove('fade-in');
+          void cardEl.offsetWidth;
+          cardEl.classList.add('fade-in');
+        }
+
+        updateProgress();
+
+        // שמירת מצב
+        saveState({
+          currentIndex,
+          attemptsPerStep,
+          hintRevealed,
+        });
+      }
+
+      function checkLocationGate(step) {
+        if (!navigator.geolocation) {
+          showToast('הדפדפן לא תומך במיקום. אפשר לדלג ידנית לעריכה.');
+          feedbackEl.textContent =
+            'הדפדפן לא תומך במיקום. אפשר לערוך את הקוד ולהסיר את הבדיקה במידת הצורך.';
+          feedbackEl.className = 'feedback error';
+          return;
+        }
+
+        feedbackEl.textContent = 'בודק מיקום… זה יכול לקחת כמה שניות.';
+        feedbackEl.className = 'feedback';
+
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            const { latitude, longitude, accuracy } = pos.coords;
+            const d = distanceInMeters(
+              latitude,
+              longitude,
+              CHEN_HATZAFON_LAT,
+              CHEN_HATZAFON_LNG
+            );
+
+            if (d <= GEOFENCE_RADIUS_METERS) {
+              feedbackEl.textContent = 'מיקום מאומת! החידה הבאה נפתחת.';
+              feedbackEl.className = 'feedback success';
+              triggerConfetti();
+              goToNextStep();
+            } else {
+              const rounded = Math.round(d);
+              feedbackEl.textContent =
+                'נראה שאתם עוד קצת רחוקים מהמקום (בערך ' +
+                rounded +
+                ' מטר). נסו להתקרב לדלת הכניסה ולבדוק שוב.';
+              feedbackEl.className = 'feedback error';
+              cardEl.classList.add('shake');
+              setTimeout(() => cardEl.classList.remove('shake'), 400);
+            }
+          },
+          (err) => {
+            console.error(err);
+            feedbackEl.textContent =
+              'לא הצלחנו לקבל מיקום. בדקו שההרשאה מאופשרת ונסו שוב.';
+            feedbackEl.className = 'feedback error';
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0,
+          }
+        );
+      }
+
+      function distanceInMeters(lat1, lon1, lat2, lon2) {
+        const R = 6371000;
+        const toRad = (deg) => (deg * Math.PI) / 180;
+        const dLat = toRad(lat2 - lat1);
+        const dLon = toRad(lon2 - lon1);
+        const a =
+          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(toRad(lat1)) *
+            Math.cos(toRad(lat2)) *
+            Math.sin(dLon / 2) *
+            Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+      }
+
+      function goToNextStep() {
+        const nextIndex = Math.min(currentIndex + 1, riddles.length - 1);
+        showStep(nextIndex);
+      }
+
+      function handleCheck() {
+        const step = riddles[currentIndex];
+
+        if (step.type === 'intro') {
+          goToNextStep();
+          return;
+        }
+
+        if (step.isLocationGate) {
+          checkLocationGate(step);
+          return;
+        }
+
+        const raw = answerInputEl.value;
+        if (!raw.trim()) {
+          showToast('נסו להכניס תשובה לפני בדיקה.');
+          return;
+        }
+
+        const normalizedInput = normalizeAnswer(raw);
+
+        const normalizedExpected = step.expectedAnswers.map((a) =>
+          normalizeAnswer(a)
+        );
+
+        if (!attemptsPerStep[step.id]) attemptsPerStep[step.id] = 0;
+        attemptsPerStep[step.id]++;
+
+        const isCorrect = normalizedExpected.includes(normalizedInput);
+
+        if (isCorrect) {
+          feedbackEl.textContent = 'בול! עניתם נכון, אפשר להתקדם לתחנה הבאה.';
+          feedbackEl.className = 'feedback success';
+          triggerConfetti();
+          saveState({
+            currentIndex,
+            attemptsPerStep,
+            hintRevealed,
+          });
+          setTimeout(goToNextStep, 900);
+        } else {
+          const msg =
+            encouragementMessages[
+              Math.floor(Math.random() * encouragementMessages.length)
+            ];
+          feedbackEl.textContent = msg;
+          feedbackEl.className = 'feedback error';
+          cardEl.classList.add('shake');
+          setTimeout(() => cardEl.classList.remove('shake'), 400);
+
+          if (
+            attemptsPerStep[step.id] >= HINT_AFTER_ATTEMPTS &&
+            step.hint &&
+            !hintRevealed[step.id]
+          ) {
+            hintRevealed[step.id] = true;
+            hintEl.textContent = step.hint;
+            showToast('הופעל רמז לחידה הזו.');
+          }
+
+          saveState({
+            currentIndex,
+            attemptsPerStep,
+            hintRevealed,
+          });
+        }
+      }
+
+      function handleHint() {
+        const step = riddles[currentIndex];
+        if (!step.hint) {
+          showToast('לחידה הזו אין רמז מיוחד – תסמכו על האינטואיציה שלכם.');
+          return;
+        }
+        hintRevealed[step.id] = true;
+        hintEl.textContent = step.hint;
+        saveState({
+          currentIndex,
+          attemptsPerStep,
+          hintRevealed,
+        });
+      }
+
+      function handleReset() {
+        if (!confirm('לאפס את המשחק ולהתחיל מהתחלה?')) return;
+        attemptsPerStep = {};
+        hintRevealed = {};
+        clearState();
+        currentIndex = 0;
+        showStep(0);
+        showToast('המשחק אופס. אפשר להתחיל מחדש.');
+      }
+
+      // --- אתחול ---
+      function init() {
+        const saved = loadState();
+        if (saved && typeof saved.currentIndex === 'number') {
+          currentIndex = Math.min(saved.currentIndex, riddles.length - 1);
+          attemptsPerStep = saved.attemptsPerStep || {};
+          hintRevealed = saved.hintRevealed || {};
+        } else {
+          currentIndex = 0;
+          attemptsPerStep = {};
+          hintRevealed = {};
+        }
+
+        showStep(currentIndex, false);
+
+        checkBtnEl.addEventListener('click', handleCheck);
+        answerInputEl.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            handleCheck();
+          }
+        });
+        hintBtnEl.addEventListener('click', handleHint);
+        resetBtnEl.addEventListener('click', handleReset);
+      }
+
+      document.addEventListener('DOMContentLoaded', init);
+    </script>
+  </body>
+</html>
