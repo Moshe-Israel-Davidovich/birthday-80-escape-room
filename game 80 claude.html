@@ -292,15 +292,15 @@ body{
   <div class="card">
     <div class="card-content">
       <div class="card-header">
-        <div class="step-title">📜 פתיח</div>
+        <div class="step-title">📜 סבא הכי הכי בעולם!</div>
         <div class="step-counter">ההרפתקה מתחילה</div>
       </div>
-      <div class="poem">
-        <div class="poem-text" id="intro-text"></div>
+      <div class="poem" style="padding: 24px 20px;">
+        <div class="poem-text" id="intro-text" style="font-size: 1.05rem; line-height: 1.8; text-align: center;"></div>
       </div>
     </div>
   </div>
-  <button class="btn btn-primary" id="btn-intro">לחידה הראשונה ←</button>
+  <button class="btn btn-primary" id="btn-intro" style="font-size: 1.1rem; padding: 14px 24px;">🚀 כן, מוכנים!</button>
 </div>
 
 <!-- ===== RIDDLE SCREEN ===== -->
@@ -418,27 +418,12 @@ const RIDDLES=[
   }
 ];
 
-const INTRO_POEM=`בוקר טוב – בוקר של שמחות
-אבא/סבא שלנו הגיע לגבורות 😉
+const INTRO_POEM=`המשחק הוכן באהבה רבה על ידי הצאצאים לכבוד יום הולדת 80 לסבא נפתלי – הסבא הכי הכי בעולם! ❤️
 
-ארוחה קלה עם המשפחה הגרעינית
-ומיד ממשיכים לפעילות חוויתית
+לפניכם מסע נוסטלגי ומאתגר של חידות, זיכרונות וחוויות לאורך השנים.
+נעבור יחד בין כמה תחנות מכוננות, נפעיל את הזיכרון, נשתף פעולה ונפתור את האתגרים.
 
-טיול קטן עם חידות-חמשירים
-להיזכר מעט באביב נעורים
-
-נעבור בכמה תחנות מכוננות
-ולבסוף ניפגש להמשך תוכניות
-
-—
-
-חוקי המשחק ממש פשוטים:
-מקבלים כתב חידה בפורמטים מגוונים
-קוראים, נזכרים, מגיעים לנקודה
-ועל סמך המקום עונים על שאלה קטנה.
-
-לתחנה ראשונה אפשר לצעוד,
-מהשניה והלאה כדאי לתת לרכב לעבוד...`;
+נו, מוכנים לצאת לדרך? 😉`;
 
 const WRONG=[
   "כמעט! נסו שוב 💪",
@@ -519,24 +504,26 @@ function startTypewriter(el, text) {
   twFullText = text;
   el.innerHTML = '';
   
-  const textSpan = document.createElement('span');
-  const cursorSpan = document.createElement('span');
-  cursorSpan.className = 'tw-cursor';
-  cursorSpan.textContent = '▋';
-  el.appendChild(textSpan);
-  el.appendChild(cursorSpan);
+  const spans = [];
+  for(let i=0; i<text.length; i++) {
+    const s = document.createElement('span');
+    s.textContent = text[i];
+    s.style.opacity = '0';
+    s.style.transition = 'opacity 0.25s ease';
+    el.appendChild(s);
+    spans.push(s);
+  }
   
   let i = 0;
   twInterval = setInterval(() => {
-    if(i < text.length) {
-      textSpan.textContent += text[i];
+    if(i < spans.length) {
+      spans[i].style.opacity = '1';
       i++;
     } else {
       clearInterval(twInterval);
       twInterval = null;
-      cursorSpan.remove();
     }
-  }, 25);
+  }, 45); // מהירות 45ms לקצב קריאה טבעי ונינוח ללא סחרחורת
 }
 
 function skipTypewriter() {
