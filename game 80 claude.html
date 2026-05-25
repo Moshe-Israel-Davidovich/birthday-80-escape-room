@@ -696,6 +696,17 @@ function showSuccess(emoji,title,msg,cb){
   document.getElementById('succ-emoji').textContent=emoji;
   document.getElementById('succ-title').textContent=title;
   document.getElementById('succ-msg').textContent=msg;
+  
+  // עדכון דינמי של טקסט הכפתור בהתאם לשלב הנוכחי
+  const nextBtn = document.getElementById('btn-next');
+  if (nextBtn) {
+    if (st.stage === 6) {
+      nextBtn.textContent = 'לסיום המשחק ←';
+    } else {
+      nextBtn.textContent = 'לחידה הבאה ←';
+    }
+  }
+  
   nextCb=cb;
   document.getElementById('success-overlay').classList.add('show');
   confetti(70);
