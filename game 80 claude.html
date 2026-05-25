@@ -390,7 +390,7 @@ const RIDDLES=[
     hint:"ללא מקפים, 10 ספרות, מתחיל ב-05",
     answers:["0526929999"],
     emoji:"🏠",
-    successMsg:"מצאתם את מספר המכולת! 📞"
+    successMsg:"תמיד נחמד לחזור לדירת הנעורים 🏠"
   },
   {
     stageLbl:"תחנה 2 מתוך 5",title:"📜 תחנה 2",
@@ -398,7 +398,7 @@ const RIDDLES=[
     hint:"רק מספר התחנה, 5 ספרות, ללא תוספות",
     answers:["25848"],
     emoji:"🚌",
-    successMsg:"מצאתם את תחנת האוטובוס! 🚌"
+    successMsg:"אין על הבית של אמא 💖"
   },
   {
     stageLbl:"תחנה 4 מתוך 5",title:"📜 תחנה 4",
@@ -406,7 +406,7 @@ const RIDDLES=[
     hint:"",
     answers:["תשל"],
     emoji:"🏥",
-    successMsg:"תשובה נכונה! 🩺"
+    successMsg:"אחח, כמה לילות לבנים היו כאן... 🩺"
   },
   {
     stageLbl:"תחנה 5 מתוך 5",title:"📜 תחנה 5",
@@ -414,7 +414,7 @@ const RIDDLES=[
     hint:"",
     answers:["יד לשריון","יד השריון","לטרון"],
     emoji:"🪖",
-    successMsg:"תשובה נכונה! 🏛️"
+    successMsg:"לסיום... 🏛️"
   }
 ];
 
@@ -730,7 +730,7 @@ document.getElementById('btn-gps').addEventListener('click',()=>{
         setTimeout(() => activeCard.classList.remove('glow-success'), 1000);
       }
       
-      setTimeout(()=>showSuccess('🕍','הגעתם למקום!','כל הכבוד! החידה הבאה פתוחה 🎉',()=>{
+      setTimeout(()=>showSuccess('🕍','הגעתם למקום!','העלייה לתורה הראשונה משמעותית יותר מכולן 🕍',()=>{
         st.stage=5;save();showScreen(5,true);
       }),600);
     } else if(d<80){
@@ -791,7 +791,7 @@ document.getElementById('gps-icon').addEventListener('click', () => {
       spawnParticles(activeCard);
       setTimeout(() => activeCard.classList.remove('glow-success'), 1000);
     }
-    setTimeout(()=>showSuccess('🕍','עקפתם את ה-GPS (מצב בדיקה)','כל הכבוד! החידה הבאה פתוחה 🎉',()=>{
+    setTimeout(()=>showSuccess('🕍','עקפתם את ה-GPS (מצב בדיקה)','העלייה לתורה הראשונה משמעותית יותר מכולן 🕍',()=>{
       st.stage=5;save();showScreen(5,true);
     }),600);
   }
